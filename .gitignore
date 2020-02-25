@@ -1,0 +1,6 @@
+__pycache__/
+static/thumbnails/
+static/files/
+pyenv/
+
+upload_data

@@ -1,7 +1,44 @@
 <!DOCTYPE html>
-<title>Hello from Flask</title>
-{% if name %}
-  <h1>Hello {{ name }}!</h1>
-{% else %}
-  <h1>Hello, World!</h1>
-{% endif %}
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Transloadit Demo</title>
+
+	<!-- Our stylesheet -->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<!-- Uppy -->
+	<link href="https://transloadit.edgly.net/releases/uppy/v1.9.2/uppy.min.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<h2>Add a file:</h2>
+		<div id="uppy-container"></div>
+
+		<hr />
+
+		<h2>My uploads:</h2>
+		<div class="row">
+			{% for upload in uploads %}
+				<div class="col-4 mb-4">
+					<div class="card">
+						<img src="{{ url_for('static', filename='thumbnails/' + upload.thumbnail_id) }}" class="card-img-top">
+						<div class="card-body">
+							<h5 class="card-title">{{ upload.original_name }}</h5>
+							<a href="{{ url_for('static', filename='files/' + upload.file_id) }}" class="btn btn-primary">Download</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<!-- Uppy -->
+	<script src="https://transloadit.edgly.net/releases/uppy/v1.9.2/uppy.min.js"></script>
+
+	<!-- Our script -->
+	<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
